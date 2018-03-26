@@ -1,7 +1,9 @@
 <?php
 
 Route::get('/', function() {
-	$tweets = App\Tweet::all();
+// 	$tweets = App\Tweet::all();
+	$tweets = App\Tweet::orderBy('created_at', 'desc')->get();
+	
 	return view('index', ['tweets' => $tweets]);
 });
 
@@ -21,4 +23,13 @@ Route::get('tweets/create', 'TweetsController@create');
 
 Route::post('tweets', 'TweetsController@store');
 
+Route::get('tweets/', 'TweetsController@index');
 
+Route::get('tweets/{id}/edit', 'TweetsController@edit');
+
+Route::put('tweets/{tweet}', 'TweetsController@update');
+
+Route::delete('tweets/{tweet}', 'TweetsController@destroy');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
